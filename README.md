@@ -27,8 +27,6 @@ For more information see the [Darknet project website](http://pjreddie.com/darkn
 
 ##### Examples of results
 
-[![Yolo v3](http://img.youtube.com/vi/VOC3huqHrss/0.jpg)]
-
 Others: https://www.youtube.com/user/pjreddie/videos
 
 ### How to compile on Linux (using `make`)
@@ -42,14 +40,15 @@ Before make, you can set such options in the `Makefile`: [link](https://github.c
 * `DEBUG=1` to bould debug version of Yolo
 * `OPENMP=1` to build with OpenMP support to accelerate Yolo by using multi-core CPU
 
-```git clone https://github.com/pjreddie/darknet
+```
+git clone https://github.com/pjreddie/darknet
 cd darknet
 make
 ````
 
 #### How to use on the command line
 Easy!
-
+down pre-trained weights My.weights()
 You already have the config file for YOLO in the cfg/ subdirectory. You will have to download the pre-trained weight file here (46 MB). Or just run this:
 './darknet detect cfg/my.cfg my.weights data/IM_0000.jpg'
 You will see some output like this:
