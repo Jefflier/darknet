@@ -22,7 +22,8 @@ For more information see the [Darknet project website](http://pjreddie.com/darkn
 * **GCC or Clang**
 
 #### Datasets
-
+* **2020年(第13届)中国大学生计算机设计大赛人工智能挑战赛：http://2020.jsjds.cn/AI/
+ or http://2020.jsjds.cn/AI/AI%202020%2002%20data01.zip
 
 ##### Examples of results
 
@@ -33,7 +34,7 @@ Others: https://www.youtube.com/user/pjreddie/videos
 ### How to compile on Linux (using `make`)
 
 Just do `make` in the darknet directory.
-Before make, you can set such options in the `Makefile`: [link](https://github.com/AlexeyAB/darknet/blob/9c1b9a2cf6363546c152251be578a21f3c3caec6/Makefile#L1)
+Before make, you can set such options in the `Makefile`: [link](https://github.com/Jefflier/darknet/blob/master/Makefile#L1)
 
 * `GPU=1` to build with CUDA to accelerate by using GPU (CUDA should be in `/usr/local/cuda`)
 * `CUDNN=1` to build with cuDNN v5-v7 to accelerate training by using GPU (cuDNN should be in `/usr/local/cudnn`)
@@ -41,8 +42,8 @@ Before make, you can set such options in the `Makefile`: [link](https://github.c
 * `DEBUG=1` to bould debug version of Yolo
 * `OPENMP=1` to build with OpenMP support to accelerate Yolo by using multi-core CPU
 
-```'git clone https://github.com/pjreddie/darknet'
-'cd darknet'
+```git clone https://github.com/pjreddie/darknet
+cd darknet
 make
 ````
 
@@ -53,28 +54,29 @@ You already have the config file for YOLO in the cfg/ subdirectory. You will hav
 './darknet detect cfg/my.cfg my.weights data/IM_0000.jpg'
 You will see some output like this:
 
-'layer     filters    size              input                output
+'''layer     filters    size              input                output
     0 conv     32  3 x 3 / 1   416 x 416 x   3   ->   416 x 416 x  32  0.299 BFLOPs
     1 conv     64  3 x 3 / 2   416 x 416 x  32   ->   208 x 208 x  64  1.595 BFLOPs
     .......
   105 conv    255  1 x 1 / 1    52 x  52 x 256   ->    52 x  52 x 255  0.353 BFLOPs
   106 detection
 truth_thresh: Using default '1.000000'
-Loading weights from yolov3.weights...Done!'
+Loading weights from yolov3.weights...Done!'''
 
-* To calculate anchors: `./darknet detector calc_anchors data/obj.data -num_of_clusters 9 -width 416 -height 416`
-* To check accuracy mAP@IoU=50: `./darknet detector map data/obj.data yolo-obj.cfg backup\yolo-obj_7000.weights`
-* To check accuracy mAP@IoU=75: `./darknet detector map data/obj.data yolo-obj.cfg backup\yolo-obj_7000.weights -iou_thresh 0.75`
+默认情况下，YOLO仅显示置信度为0.25或更高的对象。您可以通过将-thresh <val>标志传递给yolo命令来更改此设置。例如，要显示所有检测，可以将阈值设置为0：
+* `./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0`
 
-##### For using network video-camera mjpeg-stream with any Android smartphone
+网络摄像头上的实时检测
+如果看不到结果，对测试数据运行YOLO并不是很有趣。不用在一堆图像上运行它，而是在网络摄像头的输入上运行它！
 
-1. Download for Android phone mjpeg-stream soft: IP Webcam / Smart WebCam
+要运行此演示，您将需要使用CUDA和OpenCV编译Darknet。然后运行命令：
 
-    * Smart WebCam - preferably: https://play.google.com/store/apps/details?id=com.acontech.android.SmartWebCam2
-    * IP Webcam: https://play.google.com/store/apps/details?id=com.pas.webcam
+./darknet detector demo cfg/obj.data cfg/my.cfg my.weights
+YOLO将显示当前的FPS和预测的类别，以及在其顶部绘制边框的图像。
 
-2. Connect your Android phone to computer by WiFi (through a WiFi-router) or USB
-3. Start Smart WebCam on your phone
-4. Replace the address below, on shown in the phone application (Smart WebCam) and launch:
+您需要将网络摄像头连接到OpenCV可以连接到的计算机，否则它将无法正常工作。如果您连接了多个网络摄像头，并且想要选择要-c <num>使用的网络摄像头0，则可以通过该标志进行选择（默认情况下，OpenCV使用网络摄像头）。
 
-* Yolo v4 COCO-model: `darknet.exe detector demo data/coco.data yolov4.cfg yolov4.weights http://192.168.0.80:8080/video?dummy=param.mjpg -i 0`
+如果OpenCV可以读取视频，也可以在视频文件上运行它：
+
+'''./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights <video file>''
+这就是我们制作上面的YouTube视频的方式。
