@@ -23,11 +23,11 @@ For more information see the [Darknet project website](http://pjreddie.com/darkn
 
 #### Datasets
 * **2020年(第13届)中国大学生计算机设计大赛人工智能挑战赛：http://2020.jsjds.cn/AI/
- or http://2020.jsjds.cn/AI/AI%202020%2002%20data01.zip
+ or just download (2020 02 data01.zip) at http://2020.jsjds.cn/AI/AI%202020%2002%20data01.zip
 
 ##### Examples of results
 
-Others: https://www.youtube.com/user/pjreddie/videos
+Others: 对数据集的全检测百度云盘链接：(https://pan.baidu.com/s/1JK5jpf-cWqxBkYBIF6_cxQ) 提取码：otwh
 
 ### How to compile on Linux (using `make`)
 
@@ -48,19 +48,21 @@ make
 
 #### How to use on the command line
 Easy!
-down pre-trained weights My.weights()
-You already have the config file for YOLO in the cfg/ subdirectory. You will have to download the pre-trained weight file here (46 MB). Or just run this:
+down pre-trained weights 
+You already have the config file for YOLO in the cfg/ subdirectory. You will have to download the pre-trained weight file here My.weights(百度云盘链接：https://pan.baidu.com/s/1nKmRamIb5vmpeahd_gIWbw）  提取码：xw99 (46 MB). and just run this:
 './darknet detect cfg/my.cfg my.weights data/IM_0000.jpg'
 You will see some output like this:
 
-'''layer     filters    size              input                output
+'''
+layer     filters    size              input                output
     0 conv     32  3 x 3 / 1   416 x 416 x   3   ->   416 x 416 x  32  0.299 BFLOPs
     1 conv     64  3 x 3 / 2   416 x 416 x  32   ->   208 x 208 x  64  1.595 BFLOPs
     .......
   105 conv    255  1 x 1 / 1    52 x  52 x 256   ->    52 x  52 x 255  0.353 BFLOPs
   106 detection
 truth_thresh: Using default '1.000000'
-Loading weights from yolov3.weights...Done!'''
+Loading weights from yolov3.weights...Done!
+'''
 
 默认情况下，YOLO仅显示置信度为0.25或更高的对象。您可以通过将-thresh <val>标志传递给yolo命令来更改此设置。例如，要显示所有检测，可以将阈值设置为0：
 * `./darknet detect cfg/yolov3.cfg yolov3.weights data/dog.jpg -thresh 0`
@@ -73,9 +75,10 @@ Loading weights from yolov3.weights...Done!'''
 ./darknet detector demo cfg/obj.data cfg/my.cfg my.weights
 YOLO将显示当前的FPS和预测的类别，以及在其顶部绘制边框的图像。
 
-您需要将网络摄像头连接到OpenCV可以连接到的计算机，否则它将无法正常工作。如果您连接了多个网络摄像头，并且想要选择要-c <num>使用的网络摄像头0，则可以通过该标志进行选择（默认情况下，OpenCV使用网络摄像头）。
+您需要将网络摄像头连接到已编译安装OpenCV的计算机上，否则它将无法正常工作。如果您连接了多个网络摄像头，并且想要选择要-c <num>使用的网络摄像头0，则可以通过该标志进行选择（默认情况下，OpenCV使用网络摄像头）。
 
 如果OpenCV可以读取视频，也可以在视频文件上运行它：
-
-'''./darknet detector demo cfg/coco.data cfg/yolov3.cfg yolov3.weights <video file>''
-这就是我们制作上面的YouTube视频的方式。
+'''
+./darknet detector demo data/obj.data cfg/my.cfg my.weights <video file>
+ '''
+这就是我们制作上面的视频的方式。
