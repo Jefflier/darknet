@@ -44,15 +44,20 @@ Before make, you can set such options in the `Makefile`: [link](https://github.c
 git clone https://github.com/pjreddie/darknet
 cd darknet
 make
-````
+```
 
 #### How to use on the command line
 Easy!
 down pre-trained weights 
-You already have the config file for YOLO in the cfg/ subdirectory. You will have to download the pre-trained weight file here My.weights(百度云盘链接：https://pan.baidu.com/s/1nKmRamIb5vmpeahd_gIWbw）  提取码：xw99 (46 MB). and just run this:
-'./darknet detect cfg/my.cfg my.weights data/IM_0000.jpg'
-You will see some output like this:
 
+You already have the config file for YOLO in the cfg/ subdirectory. You will have to download the pre-trained weight file here My.weights(百度云盘链接：https://pan.baidu.com/s/1nKmRamIb5vmpeahd_gIWbw）  提取码：xw99 (46 MB). and just run this:
+
+'''
+./darknet detect cfg/my.cfg my.weights data/IM_0000.jpg
+'''
+
+You will see some output like this:
+*
 '''
 layer     filters    size              input                output
     0 conv     32  3 x 3 / 1   416 x 416 x   3   ->   416 x 416 x  32  0.299 BFLOPs
